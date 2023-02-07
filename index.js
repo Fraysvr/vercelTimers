@@ -6,7 +6,7 @@ const path = require("path");
 require("dotenv").config();
 
 const app = express();
-nunjucks.configure(path.join(__dirname, 'views'), {
+nunjucks.configure(path.join(__dirname, "views"), {
   autoescape: true,
   express: app,
   tags: {
@@ -15,17 +15,17 @@ nunjucks.configure(path.join(__dirname, 'views'), {
     variableStart: "[[",
     variableEnd: "]]",
     commentStart: "[#",
-    commentEnd: "#]",
-  },
+    commentEnd: "#]"
+  }
 });
 app.set("view engine", "njk");
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.static("public"));
-app.use("/login", require("./routes/login"));
-app.use("/signup", require("./routes/signup"));
-app.use("/logout", require("./routes/logout"));
-app.use("/api/timers", require("./routes/timers"));
+app.use("/login", require(path.join(__dirname, "./routes/login")));
+app.use("/signup", require(path.join(__dirname, "./routes/signup")));
+app.use("/logout", require(path.join(__dirname, "./routes/logout")));
+app.use("/api/timers", require(path.join(__dirname, "./routes/timers")));
 app.get("/", auth(), (req, res) => {
   res.render("index", {
     user: req.user,
@@ -41,7 +41,7 @@ app.get("/", auth(), (req, res) => {
     signupSuccess:
       req.query.signupSuccess === "true"
         ? "Signup successful"
-        : req.query.signupSuccess,
+        : req.query.signupSuccess
   });
 });
 
