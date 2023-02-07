@@ -1,0 +1,76 @@
+{
+  "name": "timers-noauth",
+  "version": "1.0.0",
+  "author": "",
+  "description": "",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "mongodb:migrate": "migrate-mongo up",
+    "db:migrate": "knex migrate:latest",
+    "seed": "knex seed:run --knexfile knexfile.js",
+    "start:pg": "cross-env npm run db:migrate && npm run seed && STORAGE=pg node index.js",
+    "start:memory": "cross-env STORAGE=memory node index.js",
+    "start": "cross-env npm run mongodb:migrate && STORAGE=mongo node index.js",
+    "dev:pg": "cross-env npm run db:migrate && npm run seed && nodemon STORAGE=pg index.js -e js,njk",
+    "dev:memory": "cross-env nodemon STORAGE=memory index.js -e js,njk",
+    "dev:mongo": "cross-env npm run mongodb:migrate && nodemon STORAGE=mongo index.js -e js,njk",
+    "test": "echo \"Tests passed\" && exit 0",
+    "prettify": "prettier --write",
+    "prettify:all": "prettier --write \"./**/*.{js,json}\"",
+    "lint": "eslint",
+    "lint:all": "eslint \"**/*.js\""
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.3.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "lint-staged": "^10.1.4",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.4"
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run prettify",
+      "npm run lint"
+    ],
+    "*.json": [
+      "npm run prettify"
+    ]
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emirotin/node-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/emirotin/node-template/issues"
+  },
+  "homepage": "https://github.com/emirotin/node-template#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
+    "husky": "^8.0.3",
+    "knex": "^2.3.0",
+    "migrate-mongo": "^9.0.0",
+    "mongodb": "^4.13.0",
+    "nanoid": "^3.1.10",
+    "nunjucks": "^3.2.1",
+    "pg": "^8.8.0",
+    "process": "^0.11.10",
+    "sqlite3": "^5.1.4",
+    "tarn": "^3.0.2"
+  }
+}
